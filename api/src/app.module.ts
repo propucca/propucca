@@ -6,19 +6,23 @@ import { ConfigModule } from '@nestjs/config';
 import { SharedModule } from '@/shared.module';
 import { AuthControllerModule } from './auth-controller/auth-controller.module';
 import { AuthMiddleware } from '@/middlewares/auth-middleware';
-import { BlogModule } from './blog/blog.module';
-import { HomeModule } from './home/home.module';
+import { UsersController } from './users/users.controller';
+import { UsersService } from './users/users.service';
+import { UsersModule } from './users/users.module';
+import { EmailModule } from '@/email/email.module';
+import { EmailController } from '@/email/email.controller';
+import { EmailService } from '@/email/email.service';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
     SharedModule,
     AuthControllerModule,
-    BlogModule,
-    HomeModule,
+    UsersModule,
+    EmailModule
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [AppController, UsersController,EmailController],
+  providers: [AppService, UsersService,EmailService],
   exports: [],
 })
 export class AppModule implements NestModule {

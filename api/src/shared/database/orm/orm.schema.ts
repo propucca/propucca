@@ -1,22 +1,13 @@
-import { Column, Model, Table, BelongsTo } from 'sequelize-typescript';
-import { DataTypes } from 'sequelize';
+import { Column, Model, Table, BelongsTo, ForeignKey, DataType, Default } from 'sequelize-typescript';
+
 
 @Table
-export class User extends Model {
+export class Role extends Model {
   @Column({ primaryKey: true, autoIncrement: true })
-  id: number;
+  role_id: number;
 
   @Column
-  username: string;
-
-  @Column
-  name: string;
-
-  @Column
-  picture: string;
-
-  @Column
-  social_id: number;
+  role_name: string;
 
   @Column({ defaultValue: true })
   is_active: boolean;
@@ -28,16 +19,25 @@ export class User extends Model {
   modified_on: Date;
 }
 
+
 @Table
-export class Post extends Model {
-  @Column({ primaryKey: true, autoIncrement: true })
-  id: number;
+export class User extends Model {
+ @Default(DataType.UUIDV4) // auto-generate UUID in ORM
+  @Column({
+    type: DataType.UUID,
+    primaryKey: true,
+    allowNull: false,
+  })
+  user_id: string;
 
   @Column
-  title: string;
+  user_name:string;
 
-  @Column(DataTypes.TEXT)
-  content: string;
+  @Column
+  email: string;
+
+  @Column
+  password: string;
 
   @Column({ defaultValue: true })
   is_active: boolean;
@@ -48,11 +48,12 @@ export class Post extends Model {
   @Column({ defaultValue: new Date() })
   modified_on: Date;
 
-  @BelongsTo(() => User, {
-    foreignKey: 'user_id',
-    as: 'user',
-    onDelete: 'CASCADE',
-  })
+  // Foreign key column
+  @ForeignKey(() => Role)
   @Column
-  user_id: number;
+  role_id: number;
+
+  // Association
+  @BelongsTo(() => Role, { as: 'role' })
+  role: Role;
 }
