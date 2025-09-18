@@ -1,7 +1,7 @@
 import { Controller, Post, Body } from '@nestjs/common';
 import { AuthControllerService } from './auth-controller.service';
 
-import { IforgetPwdDto, ILoginDto, ISendOtp, IVerifyOtp } from './dto/auth-controller.dto';
+import { IforgetPwdDto, ILoginDto, ISendOtp } from './dto/auth-controller.dto';
 
 @Controller('auth')
 export class AuthControllerController {
@@ -22,9 +22,5 @@ export class AuthControllerController {
     return await this.authControllerService.sendOtp(requestBody);
   }
 
-  @Post('/verify-otp')
-  async verify_otp(@Body() requestBody:IVerifyOtp):Promise<any>{
-    return await this.authControllerService.verifyOtp(requestBody);
-  }
 
 }

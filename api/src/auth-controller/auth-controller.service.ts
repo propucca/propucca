@@ -1,15 +1,16 @@
 import { Injectable } from '@nestjs/common';
 
-import { IforgetPwdDto, ILoginDto,ISendOtp, IVerifyOtp } from './dto/auth-controller.dto';
+import { IforgetPwdDto, ILoginDto,ISendOtp } from './dto/auth-controller.dto';
 
 import { ResponseMessage } from '@/constants/constants';
 import { CustomLoggerService } from '@/logger/logger.service';
 import { JwtSign } from '@/jwttoken/jwttoken.service';
 import { ICommonResponse } from '@/interface/interfaces';
 import { ORMService } from '@/database/orm/orm.service';
-import { User,otp } from '@/database/orm/orm.schema';
+import { User,Otp } from '@/database/orm/orm.schema';
 import { EncryptionService } from '@/encryption/encryption.service';
 import { EmailService } from '@/email/email.service';
+import { otpGeneratorService } from '@/utils/otpGenerator.service';
 
 
 @Injectable()
@@ -19,7 +20,8 @@ export class AuthControllerService {
     private logger: CustomLoggerService,
     private orm: ORMService,
     private pwdService: EncryptionService,
-    private emailService: EmailService
+    private emailService: EmailService,
+    private generateOtp: otpGeneratorService,
   ) {}
 
 
@@ -55,7 +57,7 @@ export class AuthControllerService {
       };
       }
       const decryptPwd = await this.pwdService.compare(request.password,userData.password);
-        if (!decryptPwd) {
+        if (decryptPwd !== true) {
           return {
             success: 0,
             message: 'Invalid Credentials!',
@@ -83,16 +85,13 @@ export class AuthControllerService {
     }
   }
 
-  generateOtp(): string {
-    return Math.floor(100000 + Math.random() * 900000).toString();
-  }
 
 async sendOtp(request: ISendOtp): Promise<any> {
     try {
-      const code = this.generateOtp();
+      const code = this.generateOtp.generateOtp();
       const expiresAt = Date.now() + 5 * 60 * 1000; // 5 mins expiry
 
-      this.orm.create({email:request.email,otp:code,expires_at:expiresAt},otp)
+      this.orm.create({email:request.email,otp:code,expires_at:expiresAt},Otp)
 
       const mailOptions = {
         to: request.email,
@@ -136,34 +135,6 @@ async sendOtp(request: ISendOtp): Promise<any> {
     }
   }
 
-  async verifyOtp(request:IVerifyOtp): Promise<any> {
-    const record = await this.orm.findOne({email:request.email},otp);
-
-    if (!record) {
-      return {
-        success: 0,
-        message: 'No Verification Code Sent',
-      };
-    }; 
-    if (Date.now() > record.dataValues.expiresAt) {
-      this.orm.delete({email:request.email},otp); 
-      return {
-        success: 0,
-        message: 'Verification Code expired!',
-      }; 
-    }
-    if (record.dataValues.otp !== request.otp) {
-      return {
-        success: 0,
-        message: 'Invalid Verification Code',
-      };
-    }
-     this.orm.delete({email:request.email},otp); 
-    return {
-        success: 1,
-        message: 'Valid Verification Code',
-      };
-  }
 
   async forget_password(request: IforgetPwdDto): Promise<ICommonResponse<any>> {
     try {
@@ -195,7 +166,30 @@ async sendOtp(request: ISendOtp): Promise<any> {
           message: 'User Not Found!'
         };
       }
+      const record = await this.orm.findOne({email:request.email},Otp);
+      if (!record) {
+      return {
+        success: 0,
+        message: 'No Verification Code Sent',
+      };
+    }; 
+    if (Date.now() > record.dataValues.expiresAt) {
+      this.orm.delete({email:request.email},Otp); 
+      return {
+        success: 0,
+        message: 'Verification Code expired!',
+      }; 
+    }
+    if (record.dataValues.otp !== request.otp) {
+      return {
+        success: 0,
+        message: 'Invalid Verification Code',
+      };
+    }
+     this.orm.delete({email:request.email},Otp); 
+
       const encryptPwd = await this.pwdService.encrypt(request.new_password);
+      
       if (!encryptPwd) {
           return {
             success: 0,

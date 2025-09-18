@@ -63,7 +63,7 @@ export class User extends Model {
 }
 
 @Table
-export class otp extends Model {
+export class Otp extends Model {
   @Column
   email: string;
 

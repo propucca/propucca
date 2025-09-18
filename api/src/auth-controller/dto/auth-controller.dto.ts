@@ -15,6 +15,9 @@ export class IforgetPwdDto {
 
   @IsNotEmpty()
   new_password:string;
+
+  @IsNotEmpty()
+  otp:string;
 }
 
 export class ISendOtp {
@@ -22,10 +25,3 @@ export class ISendOtp {
   email: string;
 }
 
-export class IVerifyOtp {
-  @IsNotEmpty()
-  email: string;
-
-  @IsNotEmpty()
-  otp:string;
-}
