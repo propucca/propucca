@@ -8,16 +8,6 @@ export class ILoginDto {
   password:string;
 }
 
-export class ISignUpDto {
-  @IsNotEmpty()
-  user_name:string;
-
-  @IsNotEmpty()
-  email: string;
-
-  @IsNotEmpty()
-  password:string;
-}
 
 export class IforgetPwdDto {
   @IsNotEmpty()

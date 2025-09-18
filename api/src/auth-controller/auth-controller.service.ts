@@ -1,20 +1,20 @@
 import { Injectable } from '@nestjs/common';
 
-import { IforgetPwdDto, ILoginDto,ISendOtp,ISignUpDto, IVerifyOtp } from './dto/auth-controller.dto';
+import { IforgetPwdDto, ILoginDto,ISendOtp, IVerifyOtp } from './dto/auth-controller.dto';
 
 import { ResponseMessage } from '@/constants/constants';
 import { CustomLoggerService } from '@/logger/logger.service';
 import { JwtSign } from '@/jwttoken/jwttoken.service';
 import { ICommonResponse } from '@/interface/interfaces';
 import { ORMService } from '@/database/orm/orm.service';
-import { User } from '@/database/orm/orm.schema';
+import { User,otp } from '@/database/orm/orm.schema';
 import { EncryptionService } from '@/encryption/encryption.service';
 import { EmailService } from '@/email/email.service';
 
 
 @Injectable()
 export class AuthControllerService {
-  private otpStore: Map<string, { otp: string; expiresAt: number }> = new Map();
+
   constructor(
     private logger: CustomLoggerService,
     private orm: ORMService,
@@ -23,76 +23,6 @@ export class AuthControllerService {
   ) {}
 
 
-  async signup(request: ISignUpDto): Promise<ICommonResponse<any>>{
-     try {
-      const user = await this.orm.findOne(
-        { email: request.email },
-        User,
-        [],
-        [],
-        [],
-      );
-
-      if (user === false) {
-        this.logger.log('User fetch failed', {
-          errorCode: '#400',
-          functionName: 'auth/login',
-          logType: 'error',
-        });
-
-        return {
-          success: 0,
-          message: ResponseMessage.unknown,
-        };
-      }
-      if(user !== null){
-        return {
-        success: 0,
-        message: 'User Already Exists',
-      };
-      }
-      else {
-        const hashedPassword = await this.pwdService.encrypt(request.password);
-        if (!hashedPassword) {
-          return {
-            success: 0,
-            message: 'Password encryption failed',
-          };
-        }
-        const insert = await this.orm.create({user_name:request.user_name,email:request.email,password:hashedPassword}, User);
-
-        if (insert === false) {
-          this.logger.log('User insert failed', {
-            errorCode: '#400',
-            functionName: 'auth/login',
-            logType: 'error',
-          });
-
-          return {
-            success: 0,
-            message: ResponseMessage.unknown,
-          };
-        }
-
-      return {
-        success: 1,
-        message: 'Signup Successfull!',
-      };
-      }
-
-    }
-    catch (err: any) {
-      this.logger.log(err.message, {
-        functionName: 'signup',
-        errorCode: '#500',
-        logType: 'error',
-      });
-      return {
-        success: 0,
-        message: ResponseMessage.unknown,
-      };
-    }
-  }
 
   async login(request: ILoginDto): Promise<ICommonResponse<any>> {
     try {
@@ -159,15 +89,15 @@ export class AuthControllerService {
 
 async sendOtp(request: ISendOtp): Promise<any> {
     try {
-      const otp = this.generateOtp();
+      const code = this.generateOtp();
       const expiresAt = Date.now() + 5 * 60 * 1000; // 5 mins expiry
 
-      this.otpStore.set(request.email, { otp, expiresAt });
+      this.orm.create({email:request.email,otp:code,expires_at:expiresAt},otp)
 
       const mailOptions = {
         to: request.email,
         subject: 'Pro Pucca Verification Code',
-        message: `Your Verification Code is: ${otp}. It is valid for 5 minutes.`,
+        message: `Your Verification Code is: ${code}. It is valid for 5 minutes.`,
       };
 
       const sendEmail = await this.emailService.sendMail(mailOptions);
@@ -207,7 +137,7 @@ async sendOtp(request: ISendOtp): Promise<any> {
   }
 
   async verifyOtp(request:IVerifyOtp): Promise<any> {
-    const record = this.otpStore.get(request.email);
+    const record = await this.orm.findOne({email:request.email},otp);
 
     if (!record) {
       return {
@@ -215,21 +145,20 @@ async sendOtp(request: ISendOtp): Promise<any> {
         message: 'No Verification Code Sent',
       };
     }; 
-    if (Date.now() > record.expiresAt) {
-      this.otpStore.delete(request.email); 
+    if (Date.now() > record.dataValues.expiresAt) {
+      this.orm.delete({email:request.email},otp); 
       return {
         success: 0,
         message: 'Verification Code expired!',
       }; 
     }
-    if (record.otp !== request.otp) {
+    if (record.dataValues.otp !== request.otp) {
       return {
         success: 0,
         message: 'Invalid Verification Code',
       };
     }
-
-    this.otpStore.delete(request.email);
+     this.orm.delete({email:request.email},otp); 
     return {
         success: 1,
         message: 'Valid Verification Code',

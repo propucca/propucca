@@ -1,7 +1,7 @@
 import { Controller, Post, Body } from '@nestjs/common';
 import { AuthControllerService } from './auth-controller.service';
 
-import { IforgetPwdDto, ILoginDto, ISendOtp, ISignUpDto, IVerifyOtp } from './dto/auth-controller.dto';
+import { IforgetPwdDto, ILoginDto, ISendOtp, IVerifyOtp } from './dto/auth-controller.dto';
 
 @Controller('auth')
 export class AuthControllerController {
@@ -10,11 +10,6 @@ export class AuthControllerController {
   @Post('/login')
   async login(@Body() requestBody: ILoginDto): Promise<any> {
     return await this.authControllerService.login(requestBody);
-  }
-
-   @Post('/signup')
-  async signup(@Body() requestBody: ISignUpDto): Promise<any> {
-    return await this.authControllerService.signup(requestBody);
   }
 
   @Post('/forget-password')

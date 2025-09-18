@@ -1,6 +1,5 @@
 import { Column, Model, Table, BelongsTo, ForeignKey, DataType, Default } from 'sequelize-typescript';
 
-
 @Table
 export class Role extends Model {
   @Column({ primaryKey: true, autoIncrement: true })
@@ -8,6 +7,11 @@ export class Role extends Model {
 
   @Column
   role_name: string;
+
+  @Column({
+    type: DataType.ARRAY(DataType.STRING),
+  })
+  permission_list: string[];
 
   @Column({ defaultValue: true })
   is_active: boolean;
@@ -56,4 +60,16 @@ export class User extends Model {
   // Association
   @BelongsTo(() => Role, { as: 'role' })
   role: Role;
+}
+
+@Table
+export class otp extends Model {
+  @Column
+  email: string;
+
+  @Column
+  otp: string;
+
+  @Column
+  expires_at: string;
 }
