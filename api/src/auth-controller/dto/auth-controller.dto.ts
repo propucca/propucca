@@ -2,15 +2,26 @@ import { IsNotEmpty } from 'class-validator';
 
 export class ILoginDto {
   @IsNotEmpty()
-  username: string;
+  email: string;
 
   @IsNotEmpty()
-  name: string;
-
-  picture: string;
+  password:string;
 }
 
-export class IUser {
+
+export class IforgetPwdDto {
   @IsNotEmpty()
-  username: string;
+  email: string;
+
+  @IsNotEmpty()
+  new_password:string;
+
+  @IsNotEmpty()
+  otp:string;
 }
+
+export class ISendOtp {
+  @IsNotEmpty()
+  email: string;
+}
+

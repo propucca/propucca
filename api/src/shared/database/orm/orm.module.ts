@@ -2,7 +2,7 @@ import { Global, Module } from '@nestjs/common';
 import { ORMService } from './orm.service';
 
 import { SequelizeModule } from '@nestjs/sequelize';
-import { User, Post } from './orm.schema';
+import { User, Role, Otp } from './orm.schema';
 import { ConfigModule } from '@nestjs/config';
 
 @Global()
@@ -21,7 +21,7 @@ import { ConfigModule } from '@nestjs/config';
       autoLoadModels: true,
       synchronize: true,
       logging: false,
-      models: [User, Post],
+      models: [User, Role,Otp],
     }),
   ],
   providers: [ORMService],

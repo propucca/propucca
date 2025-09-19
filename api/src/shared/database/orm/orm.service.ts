@@ -32,7 +32,6 @@ export class ORMService {
     try {
       const aggregation: any = {
         where: {
-          is_active: true,
           ...find,
         },
       };
@@ -116,6 +115,23 @@ export class ORMService {
     } catch (err) {
       loggerService.log(err.message, {
         functionName: 'update',
+        errorCode: '#500',
+        logType: 'error',
+      });
+      return false;
+    }
+  }
+
+  async delete(filter: any, table: any) {
+    try {
+      const record = await table.destroy({
+        where: { ...filter},
+      });
+
+      return record;
+    } catch (err) {
+      loggerService.log(err.message, {
+        functionName: 'delete',
         errorCode: '#500',
         logType: 'error',
       });
