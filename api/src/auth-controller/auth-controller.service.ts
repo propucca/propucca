@@ -37,7 +37,7 @@ export class AuthControllerService {
       );
 
       if (user === false) {
-        this.logger.log('User fetch failed', {
+        this.logger.log(ResponseMessage.userfetchfailed, {
           errorCode: '#400',
           functionName: 'auth/login',
           logType: 'error',
@@ -53,14 +53,14 @@ export class AuthControllerService {
       if (user === null) {
         return {
         success: 0,
-        message: 'Invalid Login!'
+        message: ResponseMessage.invalidlogin
       };
       }
       const decryptPwd = await this.pwdService.compare(request.password,userData.password);
         if (decryptPwd !== true) {
           return {
             success: 0,
-            message: 'Invalid Credentials!',
+            message: ResponseMessage.invalidcredentials,
           };
         }
 
@@ -68,7 +68,7 @@ export class AuthControllerService {
 
       return {
         success: 1,
-        message: 'Login Successfull!',
+        message: ResponseMessage.loginsuccess,
         data: { access_token:token,id:userData.user_id,user_name:userData.user_name, email:userData.email, role_id: userData.role_id  },
       };
 
@@ -108,18 +108,18 @@ async sendOtp(request: ISendOtp): Promise<any> {
       });
       return {
         success: 1,
-        message: 'Verification code send to Email!',
+        message: ResponseMessage.verificationcodesent,
       };
       }
       else{
-        this.logger.log(`Unable to send Verification Code`, {
+        this.logger.log(ResponseMessage.emailnotsentfailed, {
         functionName: 'sendOtp',
         errorCode:'#500',
         logType: 'log',
       });
       return {
         success: 0,
-        message: 'Unable to send Verification Code',
+        message: ResponseMessage.emailnotsentfailed,
       };
       }
     } catch (err) {
@@ -130,7 +130,7 @@ async sendOtp(request: ISendOtp): Promise<any> {
       });
       return {
         success: 0,
-        message: 'Unable to send Verification Code',
+        message: ResponseMessage.emailnotsentfailed,
       };
     }
   }
@@ -147,9 +147,9 @@ async sendOtp(request: ISendOtp): Promise<any> {
       );
 
       if (user === false) {
-        this.logger.log('User fetch failed', {
+        this.logger.log(ResponseMessage.userfetchfailed, {
           errorCode: '#400',
-          functionName: 'auth/login',
+          functionName: 'auth/forget_password',
           logType: 'error',
         });
 
@@ -163,27 +163,27 @@ async sendOtp(request: ISendOtp): Promise<any> {
       if (user === null) {
         return {
           success: 0,
-          message: 'User Not Found!'
+          message: ResponseMessage.usernotfound,
         };
       }
       const record = await this.orm.findOne({email:request.email},Otp);
       if (!record) {
       return {
         success: 0,
-        message: 'No Verification Code Sent',
+        message: ResponseMessage.verificationcodesent,
       };
     }; 
     if (Date.now() > record.dataValues.expiresAt) {
       this.orm.delete({email:request.email},Otp); 
       return {
         success: 0,
-        message: 'Verification Code expired!',
+        message: ResponseMessage.otpexpired,
       }; 
     }
     if (record.dataValues.otp !== request.otp) {
       return {
         success: 0,
-        message: 'Invalid Verification Code',
+        message: ResponseMessage.invalidotp,
       };
     }
      this.orm.delete({email:request.email},Otp); 
@@ -193,7 +193,7 @@ async sendOtp(request: ISendOtp): Promise<any> {
       if (!encryptPwd) {
           return {
             success: 0,
-            message: 'Password encryption failed',
+            message: ResponseMessage.passwordencryptfailed,
           };
       }
 
@@ -202,13 +202,13 @@ async sendOtp(request: ISendOtp): Promise<any> {
       if (!resetPwd) {
         return {
           success: 0,
-          message: 'Unable to reset the password!',
+          message: ResponseMessage.passwordresetfailed,
         };
       }
 
       return {
         success: 1,
-        message: 'Password Reset Successfull!',
+        message: ResponseMessage.passwordreset,
       };
     } catch (err: any) {
       this.logger.log(err.message, {

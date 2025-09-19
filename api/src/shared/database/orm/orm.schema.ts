@@ -1,41 +1,50 @@
-import { Column, Model, Table, BelongsTo, ForeignKey, DataType, Default } from 'sequelize-typescript';
+import {
+  Column,
+  Model,
+  Table,
+  BelongsTo,
+  ForeignKey,
+  DataType,
+} from 'sequelize-typescript';
 
 @Table
 export class Role extends Model {
-  @Column({ primaryKey: true, autoIncrement: true })
-  role_id: number;
+  @Column({
+    type: DataType.UUID,
+    defaultValue: DataType.UUIDV4, 
+    primaryKey: true,
+    allowNull: false,
+  })
+  role_id: string;
 
   @Column
   role_name: string;
 
-  @Column({
-    type: DataType.ARRAY(DataType.STRING),
-  })
+  @Column({ type: DataType.ARRAY(DataType.STRING) })
   permission_list: string[];
 
   @Column({ defaultValue: true })
   is_active: boolean;
 
-  @Column({ defaultValue: new Date() })
+  @Column({ type: DataType.DATE, defaultValue: DataType.NOW })
   created_on: Date;
 
-  @Column({ defaultValue: new Date() })
+  @Column({ type: DataType.DATE, defaultValue: DataType.NOW })
   modified_on: Date;
 }
 
-
 @Table
 export class User extends Model {
- @Default(DataType.UUIDV4) // auto-generate UUID in ORM
   @Column({
     type: DataType.UUID,
+    defaultValue: DataType.UUIDV4, 
     primaryKey: true,
     allowNull: false,
   })
   user_id: string;
 
   @Column
-  user_name:string;
+  user_name: string;
 
   @Column
   email: string;
@@ -46,18 +55,17 @@ export class User extends Model {
   @Column({ defaultValue: true })
   is_active: boolean;
 
-  @Column({ defaultValue: new Date() })
+  @Column({ type: DataType.DATE, defaultValue: DataType.NOW })
   created_on: Date;
 
-  @Column({ defaultValue: new Date() })
+  @Column({ type: DataType.DATE, defaultValue: DataType.NOW })
   modified_on: Date;
 
-  // Foreign key column
+  // Foreign key column (must match Role UUID)
   @ForeignKey(() => Role)
-  @Column
-  role_id: number;
+  @Column({ type: DataType.UUID }) 
+  role_id: string;
 
-  // Association
   @BelongsTo(() => Role, { as: 'role' })
   role: Role;
 }

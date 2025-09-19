@@ -69,6 +69,7 @@ export class ORMService {
     sort?: string[],
     join?: any[],
     exclude?: string[],
+    pagination?: { limit: number; offset: number }
   ): Promise<any> {
     try {
       const aggregation: any = {
@@ -91,6 +92,11 @@ export class ORMService {
           exclude,
         };
       }
+
+      if (pagination) {
+      aggregation['limit'] = pagination.limit;
+      aggregation['offset'] = pagination.offset;
+    }
 
       const record = await table.findAll(aggregation);
 

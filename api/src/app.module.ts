@@ -8,10 +8,12 @@ import { AuthControllerModule } from './auth-controller/auth-controller.module';
 import { AuthMiddleware } from '@/middlewares/auth-middleware';
 import { UsersController } from './users/users.controller';
 import { UsersService } from './users/users.service';
-import { UsersModule } from './users/users.module';
 import { EmailModule } from '@/email/email.module';
 import { EmailController } from '@/email/email.controller';
 import { EmailService } from '@/email/email.service';
+import { RolesModule } from './roles/roles.module';
+import { UsersModule } from './users/users.module';
+import { EncryptionService } from '@/encryption/encryption.service';
 
 @Module({
   imports: [
@@ -19,10 +21,11 @@ import { EmailService } from '@/email/email.service';
     SharedModule,
     AuthControllerModule,
     UsersModule,
-    EmailModule
+    EmailModule,
+    RolesModule
   ],
   controllers: [AppController, UsersController,EmailController],
-  providers: [AppService, UsersService,EmailService],
+  providers: [AppService, UsersService,EmailService,EncryptionService],
   exports: [],
 })
 export class AppModule implements NestModule {
