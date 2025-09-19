@@ -91,7 +91,18 @@ async sendOtp(request: ISendOtp): Promise<any> {
       const code = this.generateOtp.generateOtp();
       const expiresAt = Date.now() + 5 * 60 * 1000; // 5 mins expiry
 
-      this.orm.create({email:request.email,otp:code,expires_at:expiresAt},Otp)
+      const otpCreate = await this.orm.create({email:request.email,otp:code,expires_at:expiresAt},Otp)
+
+      if(otpCreate === false){
+         this.logger.log('Something bad happened', {
+        functionName: 'sendOtp',
+        errorCode:'#400',
+        logType: 'error'})
+        return {
+        success: 0,
+        message: 'Unable to send Verification Code',
+      };
+      }
 
       const mailOptions = {
         to: request.email,
@@ -193,7 +204,7 @@ async sendOtp(request: ISendOtp): Promise<any> {
       if (!encryptPwd) {
           return {
             success: 0,
-            message: 'Password encryption failed',
+            message: 'Something bad happened!',
           };
       }
 
