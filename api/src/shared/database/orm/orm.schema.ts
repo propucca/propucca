@@ -1,4 +1,12 @@
-import { Column, Model, Table, BelongsTo, ForeignKey, DataType, Default } from 'sequelize-typescript';
+import {
+  Column,
+  Model,
+  Table,
+  BelongsTo,
+  ForeignKey,
+  DataType,
+  Default,
+} from 'sequelize-typescript';
 
 @Table
 export class Role extends Model {
@@ -23,10 +31,9 @@ export class Role extends Model {
   modified_on: Date;
 }
 
-
 @Table
 export class User extends Model {
- @Default(DataType.UUIDV4) // auto-generate UUID in ORM
+  @Default(DataType.UUIDV4) // auto-generate UUID in ORM
   @Column({
     type: DataType.UUID,
     primaryKey: true,
@@ -35,7 +42,7 @@ export class User extends Model {
   user_id: string;
 
   @Column
-  user_name:string;
+  user_name: string;
 
   @Column
   email: string;

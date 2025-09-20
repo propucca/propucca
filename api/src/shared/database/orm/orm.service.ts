@@ -125,7 +125,7 @@ export class ORMService {
   async delete(filter: any, table: any) {
     try {
       const record = await table.destroy({
-        where: { ...filter},
+        where: { ...filter },
       });
 
       return record;

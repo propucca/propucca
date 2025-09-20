@@ -1,14 +1,14 @@
-import { IsNotEmpty } from "class-validator";
+import { IsNotEmpty } from 'class-validator';
 
-export class IEmailDto{
-    @IsNotEmpty()
-    to:string;
+export class IEmailDto {
+  @IsNotEmpty()
+  to: string;
 
-    @IsNotEmpty()
-    subject:string;
+  @IsNotEmpty()
+  subject: string;
 
-    @IsNotEmpty()
-    message:string;
+  @IsNotEmpty()
+  message: string;
 
-    html?:string;
+  html?: string;
 }

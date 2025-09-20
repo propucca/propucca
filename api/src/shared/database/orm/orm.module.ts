@@ -21,7 +21,7 @@ import { ConfigModule } from '@nestjs/config';
       autoLoadModels: true,
       synchronize: true,
       logging: false,
-      models: [User, Role,Otp],
+      models: [User, Role, Otp],
     }),
   ],
   providers: [ORMService],

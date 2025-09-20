@@ -2,25 +2,26 @@ import { Controller, Post, Body } from '@nestjs/common';
 import { AuthControllerService } from './auth-controller.service';
 
 import { IforgetPwdDto, ILoginDto, ISendOtp } from './dto/auth-controller.dto';
+import { ICommonResponse } from '@/interface/interfaces';
 
 @Controller('auth')
 export class AuthControllerController {
   constructor(private readonly authControllerService: AuthControllerService) {}
 
   @Post('/login')
-  async login(@Body() requestBody: ILoginDto): Promise<any> {
+  async login(@Body() requestBody: ILoginDto): Promise<ICommonResponse<{}>> {
     return await this.authControllerService.login(requestBody);
   }
 
   @Post('/forget-password')
-  async forget_password(@Body() requestBody:IforgetPwdDto):Promise<any>{
+  async forget_password(
+    @Body() requestBody: IforgetPwdDto,
+  ): Promise<ICommonResponse<{}>> {
     return await this.authControllerService.forget_password(requestBody);
   }
 
   @Post('/send-otp')
-  async send_otp(@Body() requestBody:ISendOtp):Promise<any>{
+  async send_otp(@Body() requestBody: ISendOtp): Promise<ICommonResponse<{}>> {
     return await this.authControllerService.sendOtp(requestBody);
   }
-
-
 }

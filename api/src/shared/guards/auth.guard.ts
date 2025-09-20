@@ -7,6 +7,6 @@ export class LoginGuard implements CanActivate {
     context: ExecutionContext,
   ): boolean | Promise<boolean> | Observable<boolean> {
     const request = context.switchToHttp().getRequest();
-    return request.body.user_id
+    return request.body.user_id;
   }
 }
