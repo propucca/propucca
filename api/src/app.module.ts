@@ -19,10 +19,10 @@ import { EmailService } from '@/email/email.service';
     SharedModule,
     AuthControllerModule,
     UsersModule,
-    EmailModule
+    EmailModule,
   ],
-  controllers: [AppController, UsersController,EmailController],
-  providers: [AppService, UsersService,EmailService],
+  controllers: [AppController, UsersController, EmailController],
+  providers: [AppService, UsersService, EmailService],
   exports: [],
 })
 export class AppModule implements NestModule {

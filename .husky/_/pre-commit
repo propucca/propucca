@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+
+echo "Running pre-commit hook"
+cd ui && npm run test-all && cd ../api && npm run test-all

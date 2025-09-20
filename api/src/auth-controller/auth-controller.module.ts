@@ -8,6 +8,11 @@ import { otpGeneratorService } from '@/utils/otpGenerator.service';
 @Module({
   imports: [AuthControllerModule],
   controllers: [AuthControllerController],
-  providers: [AuthControllerService, EncryptionService,EmailService,otpGeneratorService],
+  providers: [
+    AuthControllerService,
+    EncryptionService,
+    EmailService,
+    otpGeneratorService,
+  ],
 })
 export class AuthControllerModule {}

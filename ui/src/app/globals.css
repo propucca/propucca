@@ -1,0 +1,23 @@
+@import "tailwindcss";
+/* Note: You may need to change the path to fit your project structure */
+@config "../../tailwind.config.ts";
+@import "../styles/themes.css";
+
+header {
+  max-width: 100vw !important;
+}
+
+.ag-theme-quartz {
+  --ag-background-color: #fff !important;
+  --ag-data-color: #292c3a !important;
+  --ag-border-color: #e1ddd7 !important;
+  --ag-borders-critical: 1px solid !important;
+}
+
+.ag-hover-cell-hide {
+  display: none;
+}
+
+.ag-row-hover .ag-hover-cell-hide {
+  display: block;
+}

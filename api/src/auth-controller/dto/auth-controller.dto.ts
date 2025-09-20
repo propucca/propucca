@@ -5,23 +5,21 @@ export class ILoginDto {
   email: string;
 
   @IsNotEmpty()
-  password:string;
+  password: string;
 }
-
 
 export class IforgetPwdDto {
   @IsNotEmpty()
   email: string;
 
   @IsNotEmpty()
-  new_password:string;
+  password: string;
 
   @IsNotEmpty()
-  otp:string;
+  code: string;
 }
 
 export class ISendOtp {
   @IsNotEmpty()
   email: string;
 }
-

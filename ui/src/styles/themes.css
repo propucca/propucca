@@ -1,0 +1,495 @@
+/* Dynamic Theme CSS for Admin Panel */
+
+/* Elegant Minimalist Theme */
+.elegantMinimalist {
+  --primaryColor: #6d8ea0;
+  --secondaryColor: #d4a373;
+  --bgColor: #f9fafb;
+  --textColor: #333333;
+  --h3Color: #b01527;
+  --lightPrimary: #e0f7fa;
+  --lightSecondary: #b2ebf2;
+  --darkPrimary: #00796b;
+  --darkSecondary: #004d40;
+  --darkLoginFromColor: #2196f3;
+  --darkLoginToColor: #4caf50;
+  --darkLoginFromColorHover: #1e88e5;
+  --darkLoginToColorHover: #43a047;
+  --linkColor: #4299e1;
+  --textGray: #757575;
+  --textLightGreen: #43a047;
+  --textDarkGreen: #388e3c;
+}
+
+/* Vibrant Sunset Theme */
+.vibrantSunset {
+  --primaryColor: #ff4500;
+  --secondaryColor: #ffd700;
+  --bgColor: #fff5ee;
+  --textColor: #2f4f4f;
+  --h3Color: #ff6347;
+  --lightPrimary: #ffe4b5;
+  --lightSecondary: #ffdab9;
+  --darkPrimary: #8b0000;
+  --darkSecondary: #b22222;
+  --darkLoginFromColor: #ff8c00;
+  --darkLoginToColor: #ffa500;
+  --darkLoginFromColorHover: #ff7f50;
+  --darkLoginToColorHover: #ff4500;
+  --linkColor: #ff69b4;
+  --textGray: #696969;
+  --textLightGreen: #32cd32;
+  --textDarkGreen: #006400;
+}
+
+/* Ocean Breeze Theme */
+.oceanBreeze {
+  --primaryColor: #00ced1;
+  --secondaryColor: #20b2aa;
+  --bgColor: #e0ffff;
+  --textColor: #2f4f4f;
+  --h3Color: #4682b4;
+  --lightPrimary: #afeeee;
+  --lightSecondary: #b0e0e6;
+  --darkPrimary: #008b8b;
+  --darkSecondary: #5f9ea0;
+  --darkLoginFromColor: #00bfff;
+  --darkLoginToColor: #1e90ff;
+  --darkLoginFromColorHover: #00ced1;
+  --darkLoginToColorHover: #4682b4;
+  --linkColor: #5f9ea0;
+  --textGray: #708090;
+  --textLightGreen: #66cdaa;
+  --textDarkGreen: #2e8b57;
+}
+
+/* Forest Whisper Theme */
+.forestWhisper {
+  --primaryColor: #228b22;
+  --secondaryColor: #32cd32;
+  --bgColor: #f0fff0;
+  --textColor: #2e8b57;
+  --h3Color: #006400;
+  --lightPrimary: #98fb98;
+  --lightSecondary: #90ee90;
+  --darkPrimary: #006400;
+  --darkSecondary: #228b22;
+  --darkLoginFromColor: #2e8b57;
+  --darkLoginToColor: #3cb371;
+  --darkLoginFromColorHover: #2e8b57;
+  --darkLoginToColorHover: #3cb371;
+  --linkColor: #228b22;
+  --textGray: #556b2f;
+  --textLightGreen: #8fbc8f;
+  --textDarkGreen: #006400;
+}
+
+/* Desert Dusk Theme */
+.desertDusk {
+  --primaryColor: #daa520;
+  --secondaryColor: #cd853f;
+  --bgColor: #fff8dc;
+  --textColor: #8b4513;
+  --h3Color: #a0522d;
+  --lightPrimary: #ffd700;
+  --lightSecondary: #ffa07a;
+  --darkPrimary: #8b4513;
+  --darkSecondary: #a0522d;
+  --darkLoginFromColor: #d2691e;
+  --darkLoginToColor: #ff8c00;
+  --darkLoginFromColorHover: #d2691e;
+  --darkLoginToColorHover: #ff8c00;
+  --linkColor: #cd853f;
+  --textGray: #8b4513;
+  --textLightGreen: #deb887;
+  --textDarkGreen: #a0522d;
+}
+
+/* South Indian Delight Theme */
+.southIndianDelight {
+  --primaryColor: #fbc02d;
+  --secondaryColor: #8bc34a;
+  --bgColor: #fffde7;
+  --textColor: #424242;
+  --h3Color: #d32f2f;
+  --lightPrimary: #fff59d;
+  --lightSecondary: #dcedc8;
+  --darkPrimary: #f57f17;
+  --darkSecondary: #558b2f;
+  --darkLoginFromColor: #f9a825;
+  --darkLoginToColor: #7cb342;
+  --darkLoginFromColorHover: #f57f17;
+  --darkLoginToColorHover: #558b2f;
+  --linkColor: #ff7043;
+  --textGray: #757575;
+  --textLightGreen: #aed581;
+  --textDarkGreen: #388e3c;
+}
+
+/* Utility classes for dynamic theme colors */
+.text-primary {
+  color: var(--primaryColor);
+}
+.text-secondary {
+  color: var(--secondaryColor);
+}
+.text-bgColor {
+  color: var(--bgColor);
+}
+.text-textColor {
+  color: var(--textColor);
+}
+.text-h3Color {
+  color: var(--h3Color);
+}
+.text-lightPrimary {
+  color: var(--lightPrimary);
+}
+.text-lightSecondary {
+  color: var(--lightSecondary);
+}
+.text-darkPrimary {
+  color: var(--darkPrimary);
+}
+.text-darkSecondary {
+  color: var(--darkSecondary);
+}
+.text-darkLoginFromColor {
+  color: var(--darkLoginFromColor);
+}
+.text-darkLoginToColor {
+  color: var(--darkLoginToColor);
+}
+.text-darkLoginFromColorHover {
+  color: var(--darkLoginFromColorHover);
+}
+.text-darkLoginToColorHover {
+  color: var(--darkLoginToColorHover);
+}
+.text-linkColor {
+  color: var(--linkColor);
+}
+.text-textGray {
+  color: var(--textGray);
+}
+.text-textLightGreen {
+  color: var(--textLightGreen);
+}
+.text-textDarkGreen {
+  color: var(--textDarkGreen);
+}
+
+.bg-primary {
+  background-color: var(--primaryColor);
+}
+.bg-secondary {
+  background-color: var(--secondaryColor);
+}
+.bg-bgColor {
+  background-color: var(--bgColor);
+}
+.bg-textColor {
+  background-color: var(--textColor);
+}
+.bg-h3Color {
+  background-color: var(--h3Color);
+}
+.bg-lightPrimary {
+  background-color: var(--lightPrimary);
+}
+.bg-lightSecondary {
+  background-color: var(--lightSecondary);
+}
+.bg-darkPrimary {
+  background-color: var(--darkPrimary);
+}
+.bg-darkSecondary {
+  background-color: var(--darkSecondary);
+}
+.bg-darkLoginFromColor {
+  background-color: var(--darkLoginFromColor);
+}
+.bg-darkLoginToColor {
+  background-color: var(--darkLoginToColor);
+}
+.bg-darkLoginFromColorHover {
+  background-color: var(--darkLoginFromColorHover);
+}
+.bg-darkLoginToColorHover {
+  background-color: var(--darkLoginToColorHover);
+}
+.bg-linkColor {
+  background-color: var(--linkColor);
+}
+.bg-textGray {
+  background-color: var(--textGray);
+}
+.bg-textLightGreen {
+  background-color: var(--textLightGreen);
+}
+.bg-textDarkGreen {
+  background-color: var(--textDarkGreen);
+}
+
+.border-primary {
+  border-color: var(--primaryColor);
+}
+.border-secondary {
+  border-color: var(--secondaryColor);
+}
+.border-bgColor {
+  border-color: var(--bgColor);
+}
+.border-textColor {
+  border-color: var(--textColor);
+}
+.border-h3Color {
+  border-color: var(--h3Color);
+}
+.border-lightPrimary {
+  border-color: var(--lightPrimary);
+}
+.border-lightSecondary {
+  border-color: var(--lightSecondary);
+}
+.border-darkPrimary {
+  border-color: var(--darkPrimary);
+}
+.border-darkSecondary {
+  border-color: var(--darkSecondary);
+}
+.border-darkLoginFromColor {
+  border-color: var(--darkLoginFromColor);
+}
+.border-darkLoginToColor {
+  border-color: var(--darkLoginToColor);
+}
+.border-darkLoginFromColorHover {
+  border-color: var(--darkLoginFromColorHover);
+}
+.border-darkLoginToColorHover {
+  border-color: var(--darkLoginToColorHover);
+}
+.border-linkColor {
+  border-color: var(--linkColor);
+}
+.border-textGray {
+  border-color: var(--textGray);
+}
+.border-textLightGreen {
+  border-color: var(--textLightGreen);
+}
+.border-textDarkGreen {
+  border-color: var(--textDarkGreen);
+}
+
+/* Gradient utility classes */
+.from-darkLoginFromColor {
+  --tw-gradient-from: var(--darkLoginFromColor);
+  --tw-gradient-to: transparent;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+.to-darkLoginToColor {
+  --tw-gradient-to: var(--darkLoginToColor);
+}
+.from-darkLoginFromColorHover {
+  --tw-gradient-from: var(--darkLoginFromColorHover);
+  --tw-gradient-to: transparent;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+.to-darkLoginToColorHover {
+  --tw-gradient-to: var(--darkLoginToColorHover);
+}
+.hover\:from-darkLoginFromColorHover:hover {
+  --tw-gradient-from: var(--darkLoginFromColorHover);
+  --tw-gradient-to: transparent;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+.hover\:to-darkLoginToColorHover:hover {
+  --tw-gradient-to: var(--darkLoginToColorHover);
+}
+
+/* Specific gradient combinations for login buttons */
+.bg-gradient-to-r.from-darkLoginFromColor.to-darkLoginToColor {
+  background-image: linear-gradient(
+    to right,
+    var(--darkLoginFromColor),
+    var(--darkLoginToColor)
+  );
+}
+
+.bg-gradient-to-r.from-darkLoginFromColor.to-darkLoginToColor:hover {
+  background-image: linear-gradient(
+    to right,
+    var(--darkLoginFromColorHover),
+    var(--darkLoginToColorHover)
+  );
+}
+
+/* Fallback for when Tailwind gradient system doesn't work */
+.login-gradient {
+  background: linear-gradient(
+    to right,
+    var(--darkLoginFromColor),
+    var(--darkLoginToColor)
+  );
+}
+
+.login-gradient:hover {
+  background: linear-gradient(
+    to right,
+    var(--darkLoginFromColorHover),
+    var(--darkLoginToColorHover)
+  );
+}
+
+/* Sidebar theme integration */
+.sidebar {
+  background-color: var(--primaryColor);
+  color: var(--bgColor);
+}
+
+.sidebar-item {
+  color: var(--bgColor);
+}
+
+.sidebar-item:hover {
+  background-color: var(--darkPrimary);
+  color: var(--lightPrimary);
+}
+
+.sidebar-item.active {
+  background-color: var(--darkSecondary);
+  color: var(--lightSecondary);
+}
+
+/* Header theme integration */
+.header {
+  background: linear-gradient(
+    135deg,
+    var(--primaryColor),
+    var(--secondaryColor)
+  );
+  color: var(--bgColor);
+  border-bottom: 2px solid var(--lightSecondary);
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  backdrop-filter: blur(10px);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+/* Header hover effects */
+.header .hover\:bg-white\/20:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  transition: background-color 0.2s ease-in-out;
+}
+
+/* Header button styles */
+.header button {
+  transition: all 0.2s ease-in-out;
+}
+
+.header button:hover {
+  transform: translateY(-1px);
+}
+
+/* Header logo animation */
+.header .logo-container {
+  transition: transform 0.3s ease-in-out;
+}
+
+.header .logo-container:hover {
+  transform: scale(1.05);
+}
+
+/* Header notification badge */
+.header .notification-badge {
+  position: relative;
+}
+
+.header .notification-badge::after {
+  content: "";
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 8px;
+  height: 8px;
+  background-color: #ef4444;
+  border-radius: 50%;
+  border: 2px solid var(--bgColor);
+}
+
+/* Button theme integration */
+.btn-primary {
+  background-color: var(--primaryColor);
+  color: var(--bgColor);
+  border: 1px solid var(--primaryColor);
+}
+
+.btn-primary:hover {
+  background-color: var(--darkPrimary);
+  border-color: var(--darkPrimary);
+}
+
+.btn-secondary {
+  background-color: var(--secondaryColor);
+  color: var(--textColor);
+  border: 1px solid var(--secondaryColor);
+}
+
+.btn-secondary:hover {
+  background-color: var(--darkSecondary);
+  border-color: var(--darkSecondary);
+}
+
+/* Card theme integration */
+.card {
+  background-color: var(--bgColor);
+  border: 1px solid var(--lightSecondary);
+  color: var(--textColor);
+}
+
+.card-header {
+  background-color: var(--lightPrimary);
+  border-bottom: 1px solid var(--lightSecondary);
+  color: var(--textColor);
+}
+
+/* Form theme integration */
+.form-input {
+  background-color: var(--bgColor);
+  border: 1px solid var(--lightSecondary);
+  color: var(--textColor);
+}
+
+.form-input:focus {
+  border-color: var(--primaryColor);
+  box-shadow: 0 0 0 2px var(--lightPrimary);
+}
+
+.form-label {
+  color: var(--textColor);
+}
+
+/* Table theme integration */
+.table {
+  background-color: var(--bgColor);
+  color: var(--textColor);
+}
+
+.table th {
+  background-color: var(--lightPrimary);
+  color: var(--textColor);
+  border-bottom: 1px solid var(--lightSecondary);
+}
+
+.table td {
+  border-bottom: 1px solid var(--lightSecondary);
+}
+
+.table tr:hover {
+  background-color: var(--lightSecondary);
+}

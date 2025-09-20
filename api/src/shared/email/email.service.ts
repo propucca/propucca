@@ -3,7 +3,6 @@ import { Injectable } from '@nestjs/common';
 import * as nodemailer from 'nodemailer';
 import { IEmailDto } from './dto/email-controller.dto';
 
-
 @Injectable()
 export class EmailService {
   private transporter: nodemailer.Transporter;
@@ -12,26 +11,26 @@ export class EmailService {
     this.transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
-        user: process.env.GMAIL_USER,   
-        pass: process.env.GMAIL_PASS,   
+        user: process.env.GMAIL_USER,
+        pass: process.env.GMAIL_PASS,
       },
     });
   }
 
-  async sendMail(body:IEmailDto): Promise<boolean> {
+  async sendMail(body: IEmailDto): Promise<boolean> {
     try {
       const mailOptions = {
         from: process.env.GMAIL_USER,
-        to:body.to,
-        subject:body.subject,
-        text:body.message,
-        html:body.html,
+        to: body.to,
+        subject: body.subject,
+        text: body.message,
+        html: body.html,
       };
 
       await this.transporter.sendMail(mailOptions);
       this.loggerService.log(`Email sent successfully to ${body.to}`, {
         functionName: 'sendMail',
-        errorCode:'#200',
+        errorCode: '#200',
         logType: 'log',
       });
 
